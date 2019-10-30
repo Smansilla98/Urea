@@ -1,0 +1,79 @@
+<?php
+
+if($_POST){
+  if(isset($_POST["btnInsertar"])){
+    $aClientes = [];
+    if(file_exists("archivo.txt")){
+      $json_datos= file_get_contents("archivo.txt");
+      $aClientes = json_decode($json_datos, true);
+    }
+       
+    $aClientes []= array(
+      "dni"=>trim($_POST["txtDNI"]),
+      "nombre" =>trim($_POST["txtNombre"]),
+      "telefono" =>trim($_POST["txtTelefono"]),
+      "correo" =>trim($_POST["txtCorreo"]));
+
+
+
+    $json_clientes =  json_encode($aClientes);
+    file_put_contents("archivo.txt",$json_clientes);
+
+
+
+
+} 
+}
+
+//Para la grilla
+
+$json_clientes=file_get_contents("archivo.txt");
+$aClientes=json_decode($json_clientes, true);
+
+
+$pos = isset($_GET["pos"])? $_GET["pos"]: "";
+?>
+
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Urea TJB</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+      </head>
+<body>
+
+<h1 style=text-align:center>Carga de urea</h1>
+<h4 style=text-align:center>Surtidor Guillon.</h4>
+
+
+
+
+<div class="container">
+  <div class="row">  
+    <div class="col-6">
+     <form action="index.php" method="post">
+      <div class="form-group">
+        <label for="text">Patente</label>
+        <input type="text" class="form-control" placeholder="Example input">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Another label</label>
+        <input type="text" class="form-control"  placeholder="Another input">
+    <div class="form-group">
+        <label for="formGroupExampleInput">Example label</label>
+        <input type="text" class="form-control" placeholder="Example input">
+      </div>
+      <div class="form-group">
+        <label for="formGroupExampleInput2">Another label</label>
+        <input type="text" class="form-control"  placeholder="Another input">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</body>
+</html>
